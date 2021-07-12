@@ -51,12 +51,18 @@
       padding: 0;
     }
 
-    #messages>li {
+    li {
       padding: 0.5rem 1rem;
     }
 
-    #messages>li:nth-child(odd) {
+    .message:nth-child(odd) {
       background: #efefef;
+    }
+
+    .alert {
+      background: #333;
+      color: white;
+      font-weight: bold; 
     }
   </style>
 </head>
@@ -83,10 +89,19 @@
     });
 
     socket.on('chat message', (msg) => {
-      const item = document.createElement("li");
+      const item = document.createElement("li")
+      item.classList.add("message");
       item.textContent = msg;
       messages.appendChild(item);
       window.scrollTo(0, document.body.scrollHeight)
+    });
+
+    socket.on("connection", (alert) => {
+      const item = document.createElement("li");
+      item.classList.add("alert");
+      item.textContent = alert;
+      messages.appendChild(item);
+      window.scrollTo(0, document.body.scrollHeight);
     })
 
   </script>

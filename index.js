@@ -10,7 +10,10 @@ app.get("/", (_, res) => {
 });
 
 io.on("connection", (socket) => {
-  console.log("A user connected!");
+  // socket.on("user joins", () => {
+  const joinAlert = "Someone joined the chat.";
+  socket.broadcast.emit("connection", joinAlert);
+  // });
 
   socket.on("chat message", (msg) => {
     io.emit("chat message", msg);
