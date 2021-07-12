@@ -36,7 +36,7 @@
     }
 
     #form>button {
-      background: #333;
+      background: #89cff0;
       border: none;
       padding: 0 1rem;
       margin: 0.25rem;
@@ -70,8 +70,9 @@
   <script>
     const socket = io();
     
+    const messages = document.getElementById('messages');
     const form = document.getElementById("form");
-    let input = document.getElementById("input");
+    const input = document.getElementById("input");
 
     form.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -80,6 +81,13 @@
         input.value = '';
       }
     });
+
+    socket.on('chat message', (msg) => {
+      const item = document.createElement("li");
+      item.textContent = msg;
+      messages.appendChild(item);
+      window.scrollTo(0, document.body.scrollHeight)
+    })
 
   </script>
 </body>
